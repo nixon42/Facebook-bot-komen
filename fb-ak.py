@@ -20,7 +20,7 @@ WORD = ['login',
 LEGHT = [2, len(WORD)]  # Panjang komen [minimal, maksimal] nanti panjang komen juga random
 INTERVAL = 20  # Interval ngirim komen, gak usah cepet cepet biar aman
 DELAY = 60  # Setiap 10 kali komen akan ada delay
-URL = input('URL POSTINGAN : ')  # Ni setiap kalian buat session, kalian bisa memasukan URL postingan.
+URL = ''  # Ni setiap kalian buat session, kalian bisa memasukan URL postingan.
 # Tapi kalo mau URL dari postingan static, tinggal ganti dengan URL tsb.
 
 
@@ -175,9 +175,22 @@ if __name__ == '__main__':
     fb.login(CACHE)
 
     print('========= MULAI ==============')
-    url = URL
+    if URL == '':
+        url = input('URL POSTINGAN : ')
+    else:
+        url = URL
     print('\n')
-    req = requests.session().get(url)
+
+    while True:
+        try:
+            req = requests.session().get(url)
+            break
+        except:
+            print('URL yang anda masukan mungkin salah')
+            print('Atau mungkin koneksi anda sedang bermasalah')
+            sleep(1)
+            url = ('URL : ')
+
     jlh_komen = 0
     lst = []
     while True:
